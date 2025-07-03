@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelajaran Libre Calc</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Font - Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth; /* Smooth scroll for anchor links */
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .hover-scale-105:hover {
+            transform: scale(1.05);
+        }
+        .hover-shadow-lg:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        /* Basic Markdown styling for prose-like content */
+        .prose h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; color: #312e81; }
+        .prose h2 { font-size: 2rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #4338ca; }
+        .prose h3 { font-size: 1.75rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #4f46e5; }
+        .prose p { margin-bottom: 1rem; line-height: 1.6; }
+        .prose ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; }
+        .prose ol { list-style-type: decimal; margin-left: 1.5rem; margin-bottom: 1rem; }
+        .prose li { margin-bottom: 0.5rem; }
+        .prose strong { font-weight: 600; }
+        .prose table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+        .prose th, .prose td { border: 1px solid #e2e8f0; padding: 0.75rem; text-align: left; }
+        .prose th { background-color: #f8fafc; font-weight: 600; }
+        .prose img { max-width: 100%; height: auto; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 1rem; }
+        .prose pre { background-color: #1f2937; color: #f9fafb; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1rem; }
+        .prose code { background-color: #e0e7ff; color: #4338ca; padding: 0.2em 0.4em; border-radius: 0.3em; font-size: 0.875em; }
+        .prose pre code { background-color: transparent; color: inherit; padding: 0; border-radius: 0; }
+
+        /* Custom animation classes */
+        .animate-fade-in-down {
+            animation: fadeInDown 1s ease-out forwards;
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        .animate-fade-in-up-delay {
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md py-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a href="#" id="homeLink" class="text-2xl font-bold text-indigo-700 rounded-lg px-2 py-1 transition-all duration-300 hover-scale-105">Pembelajaran Libre Calc</a>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#modules-list" class="text-gray-600 hover:text-indigo-700 font-medium transition-colors duration-300">Modul</a></li>
+                    <li><a href="#about" class="text-gray-600 hover:text-indigo-700 font-medium transition-colors duration-300">Tentang</a></li>
+                    <li><a href="#contact" class="text-gray-600 hover:text-indigo-700 font-medium transition-colors duration-300">Kontak</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-20 md:py-32 flex items-center justify-center min-h-screen-75">
+        <div class="container mx-auto text-center px-4">
+            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in-down">
+                Kuasai Libre Calc: Dari Nol Hingga Mahir
+            </h1>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto opacity-90 animate-fade-in-up">
+                Pembelajaran interaktif dan praktis untuk mengoptimalkan kemampuan spreadsheet Anda.
+            </p>
+            <a href="#modules-list" class="bg-white text-indigo-700 px-8 py-4 rounded-full font-semibold text-lg shadow-xl transition-all duration-300 hover-scale-105 hover-shadow-lg inline-block animate-fade-in-up-delay">
+                Mulai Belajar Sekarang
+            </a>
+        </div>
+    </section>
+
+    <!-- Modules List Section -->
+    <section id="modules-list" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <h2 class="text-4xl font-bold text-center text-indigo-800 mb-12">Daftar Modul Pembelajaran</h2>
+            <div id="module-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Module cards will be dynamically inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Module Detail Section (Initially hidden) -->
+    <section id="module-detail-section" class="hidden py-16 bg-white">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h2 id="module-detail-title" class="text-4xl font-bold text-center text-indigo-800 mb-8"></h2>
+            <div id="module-content" class="prose max-w-none text-gray-700 leading-relaxed bg-gray-50 p-6 rounded-lg shadow-md">
+                <!-- Module content will be dynamically inserted here -->
+            </div>
+
+            <div id="module-interactive" class="prose max-w-none text-gray-700 leading-relaxed mt-8 pt-8 border-t border-gray-200 bg-gray-50 p-6 rounded-lg shadow-md">
+                <!-- Interactive content will be dynamically inserted here -->
+            </div>
+
+            <div id="quiz-section" class="p-6 bg-white rounded-lg shadow-md mt-8">
+                <h3 class="text-2xl font-semibold mb-6 text-indigo-700">Uji Pemahaman Modul</h3>
+                <div id="quiz-questions-container">
+                    <!-- Quiz questions will be dynamically inserted here -->
+                </div>
+                <button id="submit-quiz-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 mt-6">
+                    Kirim Jawaban
+                </button>
+                <div id="quiz-results" class="hidden mt-6 p-4 bg-indigo-50 border border-indigo-200 text-indigo-800 rounded-lg text-center text-xl font-semibold">
+                    <!-- Quiz results will be displayed here -->
+                </div>
+            </div>
+
+            <!-- Module Navigation Buttons -->
+            <div class="flex justify-between mt-10 pt-6 border-t border-gray-200">
+                <button id="prev-module-btn" class="px-6 py-3 rounded-lg font-semibold transition-all duration-300 bg-gray-300 text-gray-600 cursor-not-allowed">
+                    &larr; Modul Sebelumnya
+                </button>
+                <button id="next-module-btn" class="px-6 py-3 rounded-lg font-semibold transition-all duration-300 bg-orange-200 text-orange-800 shadow-md cursor-not-allowed">
+                    Selesaikan kuis untuk melanjutkan (min. 50% benar)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h2 class="text-4xl font-bold text-center text-indigo-800 mb-12">Tentang Pembelajaran Ini</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <p class="text-lg leading-relaxed text-gray-700">
+                        Pembelajaran Libre Calc ini dirancang untuk membantu Anda menguasai spreadsheet dari dasar hingga tingkat mahir. Kami fokus pada penyampaian materi yang singkat, tepat, dan mudah dipahami, dilengkapi dengan contoh nyata dan latihan interaktif.
+                    </p>
+                    <p class="text-lg leading-relaxed text-gray-700">
+                        Setiap modul dilengkapi dengan tes pemahaman untuk memastikan Anda menguasai konsep sebelum melanjutkan. Kami percaya bahwa pendekatan praktis adalah kunci untuk pembelajaran yang efektif.
+                    </p>
+                </div>
+                <div class="relative rounded-xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
+                    <img src="https://placehold.co/600x400/a78bfa/ffffff?text=Pembelajaran+Efektif" alt="Pembelajaran Efektif" class="w-full h-auto object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <p class="absolute bottom-4 left-4 text-white text-xl font-semibold">Belajar Mudah</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-4xl font-bold text-center text-indigo-800 mb-12">Hubungi Kami</h2>
+            <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                <form class="space-y-6">
+                    <div>
+                        <label for="contact-name" class="block text-lg font-medium text-gray-700 mb-2">Nama Lengkap</label>
+                        <input type="text" id="contact-name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200" placeholder="Masukkan nama Anda">
+                    </div>
+                    <div>
+                        <label for="contact-email" class="block text-lg font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="contact-email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200" placeholder="Masukkan email Anda">
+                    </div>
+                    <div>
+                        <label for="contact-message" class="block text-lg font-medium text-gray-700 mb-2">Pesan</label>
+                        <textarea id="contact-message" name="message" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200" placeholder="Tulis pesan Anda di sini..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold text-lg shadow-md transition-all duration-300 hover-scale-105 hover:bg-indigo-700">
+                        Kirim Pesan
+                    </button>
+                </form>
+            </div>
+            <div class="mt-12 text-center text-gray-600 space-y-2">
+                <p>Email: <a href="mailto:info@example.com" class="text-indigo-600 hover:underline">info@example.com</a></p>
+                <p>Telepon: <a href="tel:+628123456789" class="text-indigo-600 hover:underline">+62 812-3456-789</a></p>
+                <p>Alamat: Jl. Contoh No. 123, Kota Anda, Indonesia</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto text-center px-4">
+            <p>&copy; 2025 Pembelajaran Libre Calc. Semua Hak Dilindungi.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privasi</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Ketentuan</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Module Data
+        const modules = [
+            {
+                title: "Modul 1: Pengenalan Libre Calc",
+                content: `
+                    # Modul 1: Pengenalan Libre Calc
+
+                    Selamat datang di pembelajaran Libre Calc! Modul ini akan membawa Anda dari nol hingga mahir dalam waktu singkat. Mari kita mulai dengan memahami dasar-dasar.
+
+                    ## Apa itu Libre Calc?
+
+                    Libre Calc adalah program spreadsheet (lembar kerja) gratis dan sumber terbuka, bagian dari LibreOffice. Fungsinya mirip dengan Microsoft Excel, digunakan untuk mengolah data dalam bentuk tabel, melakukan perhitungan, membuat grafik, dan analisis data.
+
+                    ![Antarmuka LibreOffice Calc](https://placehold.co/600x300/e0e0e0/000000?text=Antarmuka+LibreOffice+Calc)
+
+                    ## Antarmuka Libre Calc
+
+                    Saat Anda membuka Libre Calc, Anda akan melihat beberapa bagian utama:
+
+                    1.  **Baris Judul (Title Bar)**: Menampilkan nama file dokumen Anda.
+                    2.  **Baris Menu (Menu Bar)**: Berisi semua perintah dan fungsi (File, Edit, View, dll.).
+                    3.  **Toolbar Standar (Standard Toolbar)**: Tombol pintas untuk perintah umum (Simpan, Cetak, Undo, dll.).
+                    4.  **Toolbar Pemformatan (Formatting Toolbar)**: Tombol untuk memformat teks dan sel (Font, Ukuran, Bold, Italic, dll.).
+                    5.  **Baris Rumus (Formula Bar)**: Tempat Anda melihat atau mengetik rumus dan konten sel.
+                    6.  **Kotak Nama (Name Box)**: Menampilkan alamat sel yang sedang aktif.
+                    7.  **Kolom (Columns)**: Diidentifikasi dengan huruf (A, B, C, ...).
+                    8.  **Baris (Rows)**: Diidentifikasi dengan angka (1, 2, 3, ...).
+                    9.  **Sel (Cell)**: Perpotongan antara kolom dan baris. Setiap sel memiliki alamat unik (misal: A1, B5).
+                    10. **Tab Lembar Kerja (Sheet Tabs)**: Untuk berpindah antar lembar kerja dalam satu dokumen. Secara default, ada satu lembar kerja bernama "Sheet1".
+                    11. **Baris Status (Status Bar)**: Menampilkan informasi seperti rata-rata, jumlah, atau hitungan data yang dipilih.
+
+                    ## Sel, Baris, dan Kolom
+
+                    * **Sel**: Unit dasar di lembar kerja. Anda memasukkan data ke dalam sel. Alamat sel adalah gabungan huruf kolom dan angka baris (misal: \`A1\`, \`C7\`).
+                    * **Baris**: Kumpulan sel horizontal.
+                    * **Kolom**: Kumpulan sel vertikal.
+
+                    Untuk memilih sel, cukup klik pada sel tersebut. Untuk memilih baris atau kolom, klik pada huruf kolom atau angka barisnya.
+                `,
+                interactive: `
+                    ## Interaktif: Mari Berlatih!
+
+                    1.  Buka Libre Calc di komputer Anda.
+                    2.  Coba klik pada berbagai sel dan perhatikan bagaimana Kotak Nama (Name Box) berubah.
+                    3.  Klik pada huruf kolom (misal: \`B\`) untuk memilih seluruh kolom.
+                    4.  Klik pada angka baris (misal: \`3\`) untuk memilih seluruh baris.
+                    5.  Coba klik pada tab "Sheet1" dan lihat apakah Anda bisa menambahkan lembar kerja baru (klik tombol \`+\`).
+
+                    *(Karena ini simulasi, Anda bisa membayangkan melakukan langkah-langkah ini di Libre Calc sungguhan. Tidak ada input langsung di sini.)*
+                `,
+                quiz: {
+                    questions: [
+                        {
+                            question: "Apa fungsi utama dari Libre Calc?",
+                            options: [
+                                "Untuk mengedit gambar",
+                                "Untuk mengolah data dalam bentuk tabel dan melakukan perhitungan",
+                                "Untuk membuat presentasi",
+                                "Untuk menulis dokumen teks"
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Apa yang dimaksud dengan 'sel' di Libre Calc?",
+                            options: [
+                                "Kumpulan baris horizontal",
+                                "Kumpulan kolom vertikal",
+                                "Perpotongan antara kolom dan baris",
+                                "Baris judul dokumen"
+                            ],
+                            answer: 2
+                        },
+                        {
+                            question: "Di mana Anda akan melihat atau mengetik rumus di Libre Calc?",
+                            options: [
+                                "Baris Judul",
+                                "Baris Status",
+                                "Baris Rumus",
+                                "Toolbar Standar"
+                            ],
+                            answer: 2
+                        },
+                        {
+                            question: "Bagaimana cara memilih seluruh kolom di Libre Calc?",
+                            options: [
+                                "Klik pada angka barisnya",
+                                "Klik ganda pada sel di kolom tersebut",
+                                "Klik pada huruf kolomnya",
+                                "Tekan Enter"
+                            ],
+                            answer: 2
+                        }
+                    ]
+                }
+            },
+            {
+                title: "Modul 2: Memasukkan dan Mengelola Data",
+                content: `
+                    # Modul 2: Memasukkan dan Mengelola Data
+
+                    Setelah memahami antarmuka, sekarang saatnya belajar cara memasukkan dan mengelola data di Libre Calc.
+
+                    ## Tipe Data
+
+                    Libre Calc dapat mengenali beberapa tipe data secara otomatis:
+
+                    * **Angka (Numbers)**: Untuk perhitungan (misal: \`123\`, \`3.14\`, \`-50\`).
+                    * **Teks (Text)**: Untuk informasi non-numerik (misal: \`Nama Barang\`, \`Jakarta\`).
+                    * **Tanggal dan Waktu (Date & Time)**: Untuk informasi tanggal dan waktu (misal: \`01/01/2025\`, \`14:30\`).
+                    * **Rumus (Formulas)**: Dimulai dengan tanda \`=\` (misal: \`=A1+B1\`).
+
+                    ## Memasukkan Data
+
+                    1.  **Pilih Sel**: Klik pada sel tempat Anda ingin memasukkan data.
+                    2.  **Ketik Data**: Ketik data yang Anda inginkan.
+                    3.  **Tekan Enter**: Setelah selesai mengetik, tekan \`Enter\` untuk memindahkan kursor ke sel di bawahnya, atau \`Tab\` untuk memindahkan kursor ke sel di kanannya. Anda juga bisa mengklik sel lain.
+
+                    ## Mengedit Data
+
+                    Ada beberapa cara untuk mengedit data di sel:
+
+                    1.  **Klik Ganda (Double-Click)**: Klik ganda pada sel, lalu edit teks langsung di dalam sel.
+                    2.  **Baris Rumus (Formula Bar)**: Pilih sel, lalu edit kontennya di Baris Rumus.
+                    3.  **Timpa (Overwrite)**: Pilih sel, lalu ketik data baru. Data lama akan otomatis terganti.
+
+                    ## Menghapus Data
+
+                    1.  **Pilih Sel/Rentang Sel**: Klik pada sel atau seret mouse untuk memilih beberapa sel.
+                    2.  **Tekan Delete**: Tekan tombol \`Delete\` pada keyboard.
+
+                    ## Memindahkan dan Menyalin Data
+
+                    * **Memindahkan (Cut & Paste)**:
+                        1.  Pilih sel/rentang sel.
+                        2.  Klik \`Edit\` > \`Cut\` (atau \`Ctrl+X\`).
+                        3.  Pilih sel tujuan.
+                        4.  Klik \`Edit\` > \`Paste\` (atau \`Ctrl+V\`).
+                    * **Menyalin (Copy & Paste)**:
+                        1.  Pilih sel/rentang sel.
+                        2.  Klik \`Edit\` > \`Copy\` (atau \`Ctrl+C\`).
+                        3.  Pilih sel tujuan.
+                        4.  Klik \`Edit\` > \`Paste\` (atau \`Ctrl+V\`).
+                `,
+                interactive: `
+                    ## Interaktif: Mari Berlatih!
+
+                    1.  Buka lembar kerja baru di Libre Calc.
+                    2.  Di sel \`A1\`, ketik \`Nama Barang\`. Di \`B1\`, ketik \`Harga\`. Di \`C1\`, ketik \`Jumlah\`.
+                    3.  Di bawahnya, masukkan beberapa data contoh:
+                        * \`A2\`: \`Pensil\`, \`B2\`: \`2500\`, \`C2\`: \`10\`
+                        * \`A3\`: \`Buku\`, \`B3\`: \`5000\`, \`C3\`: \`5\`
+                    4.  Coba edit harga \`Pensil\` menjadi \`3000\` menggunakan Baris Rumus.
+                    5.  Hapus data \`Buku\` di sel \`A3\`.
+                    6.  Salin seluruh baris \`Pensil\` (A2:C2) ke baris 5 (A5:C5).
+
+                    *(Karena ini simulasi, Anda bisa membayangkan melakukan langkah-langkah ini di Libre Calc sungguhan. Tidak ada input langsung di sini.)*
+                `,
+                quiz: {
+                    questions: [
+                        {
+                            question: "Apa perbedaan utama antara memindahkan (Cut) dan menyalin (Copy) data?",
+                            options: [
+                                "Cut hanya bisa digunakan untuk teks, Copy untuk angka.",
+                                "Cut memindahkan data dari lokasi asli, Copy membuat salinan data.",
+                                "Cut lebih cepat daripada Copy.",
+                                "Tidak ada perbedaan."
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Bagaimana cara tercepat untuk mengganti data yang sudah ada di sebuah sel?",
+                            options: [
+                                "Tekan Delete lalu ketik data baru.",
+                                "Klik ganda lalu ketik data baru.",
+                                "Pilih sel lalu ketik data baru.",
+                                "Tekan Ctrl+Z lalu ketik data baru."
+                            ],
+                            answer: 2
+                        },
+                        {
+                            question: "Jika Anda mengetik `=A1+B1` di sebuah sel, tipe data apa yang dikenali oleh Libre Calc?",
+                            options: [
+                                "Teks",
+                                "Angka",
+                                "Tanggal",
+                                "Rumus"
+                            ],
+                            answer: 3
+                        },
+                        {
+                            question: "Apa yang Anda lakukan setelah selesai mengetik data di sebuah sel untuk berpindah ke sel berikutnya di bawahnya?",
+                            options: [
+                                "Tekan Tab",
+                                "Tekan Enter",
+                                "Klik sel lain",
+                                "Semua jawaban benar"
+                            ],
+                            answer: 1
+                        }
+                    ]
+                }
+            },
+            {
+                title: "Modul 3: Rumus Dasar dan Fungsi",
+                content: `
+                    # Modul 3: Rumus Dasar dan Fungsi
+
+                    Ini adalah inti dari Libre Calc! Rumus dan fungsi memungkinkan Anda melakukan perhitungan otomatis dan analisis data.
+
+                    ## Apa itu Rumus?
+
+                    Rumus adalah ekspresi yang melakukan perhitungan pada nilai-nilai di lembar kerja Anda. Semua rumus di Libre Calc **harus dimulai dengan tanda sama dengan (\`=\`)**.
+
+                    ### Operator Matematika Dasar
+
+                    | Operator | Fungsi        | Contoh    |
+                    | :------- | :------------ | :-------- |
+                    | \`+\`      | Penjumlahan   | \`=A1+B1\`  |
+                    | \`-\`      | Pengurangan   | \`=A1-B1\`  |
+                    | \`*\`      | Perkalian     | \`=A1*B1\`  |
+                    | \`/\`      | Pembagian     | \`=A1/B1\`  |
+                    | \`^\`      | Pangkat       | \`=A1^2\`   |
+
+                    **Contoh:**
+                    Jika sel \`A1\` berisi \`10\` dan \`B1\` berisi \`5\`:
+                    * \`=A1+B1\` akan menghasilkan \`15\`
+                    * \`=A1*B1\` akan menghasilkan \`50\`
+
+                    ## Apa itu Fungsi?
+
+                    Fungsi adalah rumus bawaan yang dirancang untuk melakukan perhitungan tertentu. Mereka mempermudah pekerjaan Anda karena tidak perlu menulis rumus yang panjang.
+
+                    Struktur umum fungsi: \`=NAMA_FUNGSI(argumen1; argumen2; ...)\`
+
+                    ### Fungsi Dasar yang Sering Digunakan
+
+                    1.  **\`SUM\` (Jumlah)**: Menjumlahkan semua angka dalam rentang sel.
+                        * Contoh: \`=SUM(A1:A5)\` akan menjumlahkan angka dari sel A1 sampai A5.
+                        * Contoh: \`=SUM(A1;B1;C1)\` akan menjumlahkan A1, B1, dan C1.
+
+                    2.  **\`AVERAGE\` (Rata-rata)**: Menghitung rata-rata dari angka dalam rentang sel.
+                        * Contoh: \`=AVERAGE(B2:B10)\`
+
+                    3.  **\`COUNT\` (Hitung)**: Menghitung berapa banyak sel dalam rentang yang berisi angka.
+                        * Contoh: \`=COUNT(C1:C20)\`
+
+                    4.  **\`MAX\` (Maksimum)**: Menemukan nilai tertinggi dalam rentang sel.
+                        * Contoh: \`=MAX(D1:D15)\`
+
+                    5.  **\`MIN\` (Minimum)**: Menemukan nilai terendah dalam rentang sel.
+                        * Contoh: \`=MIN(E1:E15)\`
+
+                    ## Menggunakan Fungsi AutoSum
+
+                    Libre Calc memiliki fitur AutoSum yang memudahkan Anda menjumlahkan angka dengan cepat.
+                    1.  Pilih sel di bawah atau di samping rentang angka yang ingin dijumlahkan.
+                    2.  Klik tombol \`Sum\` (simbol Sigma, \`Σ\`) di Toolbar Standar. Libre Calc akan otomatis mendeteksi rentang angka dan membuat rumus \`SUM\`.
+                `,
+                interactive: `
+                    ## Interaktif: Mari Berlatih!
+
+                    1.  Buat tabel sederhana:
+                        * \`A1\`: \`Produk\`
+                        * \`B1\`: \`Penjualan Q1\`
+                        * \`C1\`: \`Penjualan Q2\`
+                        * \`D1\`: \`Total Penjualan\`
+                        * \`A2\`: \`Laptop\`, \`B2\`: \`150\`, \`C2\`: \`180\`
+                        * \`A3\`: \`Monitor\`, \`B3\`: \`120\`, \`C3\`: \`100\`
+                        * \`A4\`: \`Keyboard\`, \`B4\`: \`80\`, \`C4\`: \`90\`
+                    2.  Di sel \`D2\`, tulis rumus untuk menjumlahkan \`Penjualan Q1\` dan \`Penjualan Q2\` untuk Laptop. (Petunjuk: \`=B2+C2\`).
+                    3.  Salin rumus dari \`D2\` ke \`D3\` dan \`D4\`. Anda bisa menyeret kotak kecil di sudut kanan bawah sel \`D2\` ke bawah.
+                    4.  Di sel \`B5\`, gunakan fungsi \`SUM\` untuk menghitung total \`Penjualan Q1\`.
+                    5.  Di sel \`C5\`, gunakan fungsi \`AVERAGE\` untuk menghitung rata-rata \`Penjualan Q2\`.
+                    6.  Di sel \`D5\`, gunakan fungsi \`MAX\` untuk menemukan penjualan tertinggi dari kolom \`Total Penjualan\`.
+
+                    *(Karena ini simulasi, Anda bisa membayangkan melakukan langkah-langkah ini di Libre Calc sungguhan. Tidak ada input langsung di sini.)*
+                `,
+                quiz: {
+                    questions: [
+                        {
+                            question: "Semua rumus di Libre Calc harus dimulai dengan karakter apa?",
+                            options: [
+                                "`+`",
+                                "`-`",
+                                "`=`",
+                                "`*`"
+                            ],
+                            answer: 2
+                        },
+                        {
+                            question: "Fungsi apa yang Anda gunakan untuk menemukan nilai terendah dalam rentang sel?",
+                            options: [
+                                "`MAX`",
+                                "`AVERAGE`",
+                                "`MIN`",
+                                "`SUM`"
+                            ],
+                            answer: 2
+                        },
+                        {
+                            question: "Jika Anda memiliki angka di sel `A1` sampai `A10`, bagaimana rumus untuk menjumlahkan semua angka tersebut?",
+                            options: [
+                                "`=SUM(A1-A10)`",
+                                "`=TOTAL(A1:A10)`",
+                                "`=SUM(A1:A10)`",
+                                "`=ADD(A1,A10)`"
+                            ],
+                            answer: 2
+                        },
+                        {
+                            question: "Apa yang akan dihasilkan oleh rumus `=5 * (2 + 3)`?",
+                            options: [
+                                "13",
+                                "25",
+                                "10",
+                                "15"
+                            ],
+                            answer: 1
+                        }
+                    ]
+                }
+            },
+            {
+                title: "Modul 4: Pemformatan Sel dan Data",
+                content: `
+                    # Modul 4: Pemformatan Sel dan Data
+
+                    Pemformatan membuat lembar kerja Anda lebih mudah dibaca dan dipahami. Anda bisa mengubah tampilan teks, angka, dan batas sel.
+
+                    ## Pemformatan Teks
+
+                    Anda bisa mengubah tampilan teks di sel menggunakan Toolbar Pemformatan atau melalui menu \`Format > Cells...\`.
+
+                    * **Font**: Mengubah jenis huruf (misal: Arial, Times New Roman).
+                    * **Ukuran Font**: Mengubah ukuran teks.
+                    * **Bold (Tebal)**: Membuat teks tebal.
+                    * **Italic (Miring)**: Membuat teks miring.
+                    * **Underline (Garis Bawah)**: Memberi garis bawah pada teks.
+                    * **Warna Font**: Mengubah warna teks.
+                    * **Warna Latar Belakang Sel (Fill Color)**: Mengubah warna latar belakang sel.
+
+                    ## Pemformatan Angka
+
+                    Ini sangat penting untuk menampilkan data numerik dengan benar, seperti mata uang, persentase, atau tanggal.
+
+                    1.  **Pilih Sel/Rentang Sel**.
+                    2.  Klik kanan pada sel yang dipilih, lalu pilih \`Format Cells...\` (atau \`Ctrl+1\`).
+                    3.  Pilih tab \`Numbers\`.
+                    4.  Pilih kategori yang sesuai (misal: Currency, Date, Percentage, Number).
+
+                    ### Contoh Pemformatan Angka:
+
+                    * **Currency (Mata Uang)**: Untuk menampilkan angka sebagai mata uang (misal: \`Rp 1.500.000\` atau \`$1,500.00\`).
+                        * Pilih \`Currency\`, lalu pilih simbol mata uang dan jumlah desimal yang diinginkan.
+                    * **Percentage (Persentase)**: Untuk menampilkan angka sebagai persentase (misal: \`15%\`).
+                        * Jika sel berisi \`0.15\`, format sebagai persentase akan menampilkannya sebagai \`15%\`.
+                    * **Date (Tanggal)**: Untuk menampilkan tanggal dalam format yang berbeda (misal: \`DD/MM/YYYY\`, \`MMMM DD, Jamboree\`).
+                    * **Number**: Untuk mengatur jumlah desimal, pemisah ribuan, dll.
+
+                    ## Batas (Borders) dan Latar Belakang (Background)
+
+                    Anda bisa menambahkan batas di sekitar sel atau rentang sel untuk memisahkan data atau membuat tabel lebih jelas.
+
+                    1.  **Pilih Sel/Rentang Sel**.
+                    2.  Klik kanan, pilih \`Format Cells...\`.
+                    3.  Pilih tab \`Borders\` atau \`Background\`.
+                        * **Borders**: Pilih gaya garis, warna, dan posisi batas (atas, bawah, kiri, kanan, semua).
+                        * **Background**: Pilih warna untuk mengisi latar belakang sel.
+
+                    ## Penyelarasan (Alignment) Teks
+
+                    Mengatur posisi teks di dalam sel (kiri, tengah, kanan, atas, tengah, bawah).
+
+                    1.  **Pilih Sel/Rentang Sel**.
+                    2.  Klik kanan, pilih \`Format Cells...\`.
+                    3.  Pilih tab \`Alignment\`.
+                        * **Horizontal**: Left, Center, Right.
+                        * **Vertical**: Top, Middle, Bottom.
+                        * **Wrap text automatically**: Jika teks terlalu panjang, akan pindah ke baris baru di dalam sel.
+                `,
+                interactive: `
+                    ## Interaktif: Mari Berlatih!
+
+                    1.  Buat tabel data penjualan sederhana:
+                        * \`A1\`: \`Produk\`, \`B1\`: \`Harga Satuan\`, \`C1\`: \`Jumlah Terjual\`, \`D1\`: \`Total\`
+                        * \`A2\`: \`Kemeja\`, \`B2\`: \`150000\`, \`C2\`: \`10\`
+                        * \`A3\`: \`Celana\`, \`B3\`: \`200000\`, \`C3\`: \`5\`
+                        * \`A4\`: \`Sepatu\`, \`B4\`: \`350000\`, \`C4\`: \`3\`
+                    2.  Di sel \`D2\`, buat rumus \`=B2*C2\` dan salin ke bawah.
+                    3.  Format sel \`A1:D1\` menjadi **Bold** dan **Warna Latar Belakang** abu-abu muda.
+                    4.  Format kolom \`B\` dan \`D\` sebagai **Mata Uang (Currency)** dengan simbol \`Rp\` dan 0 desimal.
+                    5.  Tambahkan **Batas (Borders)** di sekitar seluruh tabel (A1:D4).
+                    6.  Pusatkan (Center) teks di kolom \`B\` dan \`C\`.
+
+                    *(Karena ini simulasi, Anda bisa membayangkan melakukan langkah-langkah ini di Libre Calc sungguhan. Tidak ada input langsung di sini.)*
+                `,
+                quiz: {
+                    questions: [
+                        {
+                            question: "Jika Anda ingin menampilkan angka `0.75` sebagai `75%`, pemformatan angka apa yang harus Anda gunakan?",
+                            options: [
+                                "Currency",
+                                "Date",
+                                "Percentage",
+                                "Number"
+                            ],
+                            answer: 2
+                        },
+                        {
+                            question: "Bagaimana cara membuat teks di sel menjadi tebal? Sebutkan dua cara.",
+                            options: [
+                                "Klik kanan > Format Cells... > Font > Bold; atau klik ikon Bold di toolbar.",
+                                "Tekan Ctrl+B; atau klik ikon Italic di toolbar.",
+                                "Klik ganda sel; atau tekan Delete.",
+                                "Tidak bisa dibuat tebal."
+                            ],
+                            answer: 0
+                        },
+                        {
+                            question: "Apa fungsi dari fitur 'Wrap text automatically' pada pengaturan Alignment?",
+                            options: [
+                                "Membuat teks menjadi miring.",
+                                "Memindahkan teks ke baris baru di dalam sel jika terlalu panjang.",
+                                "Mengubah warna teks.",
+                                "Menambahkan garis bawah pada teks."
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Jika Anda ingin menambahkan garis di sekeliling setiap sel dalam tabel Anda, fitur pemformatan apa yang akan Anda gunakan?",
+                            options: [
+                                "Font Color",
+                                "Fill Color",
+                                "Borders",
+                                "Alignment"
+                            ],
+                            answer: 2
+                        }
+                    ]
+                }
+            },
+            {
+                title: "Modul 5: Menggunakan Fungsi Lanjutan",
+                content: `
+                    # Modul 5: Menggunakan Fungsi Lanjutan
+
+                    Setelah menguasai rumus dan fungsi dasar, mari kita tingkatkan kemampuan Anda dengan beberapa fungsi lanjutan yang sangat berguna untuk analisis data.
+
+                    ## 1. Fungsi \`IF\` (Jika)
+
+                    Fungsi \`IF\` memungkinkan Anda membuat keputusan logis. Ini akan mengembalikan satu nilai jika suatu kondisi benar, dan nilai lain jika kondisi salah.
+
+                    * **Sintaks**: \`=IF(kondisi_logis; nilai_jika_benar; nilai_jika_salah)\`
+                    * **\`kondisi_logis\`**: Ekspresi yang dievaluasi sebagai TRUE atau FALSE (misal: \`A1>10\`, \`B2="Lulus"\`).
+                    * **\`nilai_jika_benar\`**: Nilai yang dikembalikan jika kondisi_logis adalah TRUE.
+                    * **\`nilai_jika_salah\`**: Nilai yang dikembalikan jika kondisi_logis adalah FALSE.
+
+                    **Contoh**:
+                    Jika nilai di sel \`B2\` lebih besar atau sama dengan \`70\`, tampilkan "Lulus", jika tidak, tampilkan "Gagal".
+                    \`=IF(B2>=70; "Lulus"; "Gagal")\`
+
+                    ## 2. Fungsi \`VLOOKUP\` (Pencarian Vertikal)
+
+                    \`VLOOKUP\` digunakan untuk mencari nilai dalam kolom pertama dari rentang tabel, lalu mengembalikan nilai di baris yang sama dari kolom lain yang Anda tentukan. Ini sangat berguna untuk mencari data di tabel besar.
+
+                    * **Sintaks**: \`=VLOOKUP(nilai_dicari; rentang_tabel; indeks_kolom; [rentang_pencarian])\`
+                    * **\`nilai_dicari\`**: Nilai yang ingin Anda cari (misal: ID Produk, Nama Karyawan).
+                    * **\`rentang_tabel\`**: Rentang sel yang berisi tabel tempat Anda mencari data. Kolom pertama harus berisi \`nilai_dicari\`.
+                    * **\`indeks_kolom\`**: Nomor kolom dalam \`rentang_tabel\` dari mana Anda ingin mengembalikan nilai. (Kolom pertama adalah 1, kedua adalah 2, dst.).
+                    * **\`[rentang_pencarian]\` (opsional)**:
+                        * \`TRUE\` atau dihilangkan: Pencarian perkiraan (cocok untuk data yang diurutkan).
+                        * \`FALSE\`: Pencarian tepat. **Sangat direkomendasikan menggunakan \`FALSE\`** untuk hasil yang akurat, kecuali Anda tahu persis apa yang Anda lakukan.
+
+                    **Contoh**:
+                    Anda punya tabel daftar harga produk di \`A1:B10\`. Di sel \`D2\`, Anda ingin mencari harga \`Pensil\`.
+                    \`=VLOOKUP("Pensil"; A1:B10; 2; FALSE)\`
+                    (Asumsi kolom A adalah nama produk, kolom B adalah harga)
+
+                    ## 3. Fungsi \`HLOOKUP\` (Pencarian Horizontal)
+
+                    \`HLOOKUP\` mirip dengan \`VLOOKUP\`, tetapi mencari nilai dalam **baris pertama** dari rentang tabel, lalu mengembalikan nilai di kolom yang sama dari baris lain yang Anda tentukan.
+
+                    * **Sintaks**: \`=HLOOKUP(nilai_dicari; rentang_tabel; indeks_baris; [rentang_pencarian])\`
+                    * **\`nilai_dicari\`**: Nilai yang ingin Anda cari di baris pertama tabel.
+                    * **\`rentang_tabel\`**: Rentang sel yang berisi tabel tempat Anda mencari data. Baris pertama harus berisi \`nilai_dicari\`.
+                    * **\`indeks_baris\`**: Nomor baris dalam \`rentang_tabel\` dari mana Anda ingin mengembalikan nilai. (Baris pertama adalah 1, kedua adalah 2, dst.).
+                    * **\`[rentang_pencarian]\` (opsional)**: \`TRUE\` (perkiraan) atau \`FALSE\` (tepat).
+
+                    **Contoh**:
+                    Jika header tabel Anda ada di baris 1 (\`Produk\`, \`Harga\`, \`Stok\`) dan data di baris 2 dst. Anda ingin mencari stok \`Monitor\`.
+                    \`=HLOOKUP("Stok"; A1:C5; 3; FALSE)\`
+                    (Asumsi baris 1 adalah header, baris 3 adalah data stok)
+
+                    ## 4. Fungsi \`CONCATENATE\` (Menggabungkan Teks)
+
+                    Menggabungkan dua atau lebih string teks menjadi satu string. Anda juga bisa menggunakan operator \`&\`.
+
+                    * **Sintaks**: \`=CONCATENATE(teks1; teks2; ...)\`
+                    * **Operator \`&\`**: \`="Halo" & " " & "Dunia"\`
+
+                    **Contoh**:
+                    Jika \`A1\` berisi "John" dan \`B1\` berisi "Doe".
+                    \`=CONCATENATE(A1; " "; B1)\` akan menghasilkan "John Doe".
+                    \`=A1 & " " & B1\` juga akan menghasilkan "John Doe".
+
+                    ## 5. Fungsi \`TEXT\` (Memformat Angka sebagai Teks)
+
+                    Mengubah nilai numerik menjadi teks dengan format tertentu. Berguna saat Anda ingin menggabungkan angka dengan teks dan mempertahankan format angka tersebut.
+
+                    * **Sintaks**: \`=TEXT(nilai; format_teks)\`
+                    * **\`nilai\`**: Angka yang ingin Anda format.
+                    * **\`format_teks\`**: String yang menentukan format (misal: \`"Rp #,##0.00"\`, \`"DD/MM/YYYY"\`).
+
+                    **Contoh**:
+                    Jika \`A1\` berisi \`1250000\`.
+                    \`=TEXT(A1; "Rp #,##0")\` akan menghasilkan "Rp 1.250.000".
+                    \`="Total penjualan: " & TEXT(A1; "Rp #,##0")\` akan menghasilkan "Total penjualan: Rp 1.250.000".
+                `,
+                interactive: `
+                    ## Interaktif: Mari Berlatih!
+
+                    1.  Buat tabel \`Data Siswa\`:
+                        * \`A1\`: \`ID\`, \`B1\`: \`Nama\`, \`C1\`: \`Nilai\`
+                        * \`A2\`: \`001\`, \`B2\`: \`Ani\`, \`C2\`: \`85\`
+                        * \`A3\`: \`002\`, \`B3\`: \`Budi\`, \`C3\`: \`60\`
+                        * \`A4\`: \`003\`, \`B4\`: \`Citra\`, \`C4\`: \`70\`
+                    2.  Di kolom \`D\` (\`D1\` ketik \`Status\`), gunakan fungsi \`IF\` untuk menampilkan "Lulus" jika nilai \`>= 70\`, dan "Gagal" jika \`< 70\`.
+                    3.  Buat tabel \`Daftar Harga Produk\` di \`F1:G4\`:
+                        * \`F1\`: \`Kode\`, \`G1\`: \`Produk\`
+                        * \`F2\`: \`P001\`, \`G2\`: \`Mouse\`
+                        * \`F3\`: \`P002\`, \`G3\`: \`Keyboard\`
+                        * \`F4\`: \`P003\`, \`G4\`: \`Monitor\`
+                    4.  Di sel \`E2\`, ketik \`P002\`. Di sel \`E3\`, gunakan \`VLOOKUP\` untuk mencari nama produk berdasarkan kode di \`E2\` dari tabel \`F1:G4\`.
+                    5.  Di sel \`E4\`, gabungkan teks "Nama lengkap: " dengan nama siswa di \`B2\` menggunakan \`CONCATENATE\` atau \`&\`.
+                    6.  Di sel \`E5\`, jika \`C2\` berisi \`85\`, gunakan fungsi \`TEXT\` untuk menampilkannya sebagai "Nilai: 85.00".
+
+                    *(Karena ini simulasi, Anda bisa membayangkan melakukan langkah-langkah ini di Libre Calc sungguhan. Tidak ada input langsung di sini.)*
+                `,
+                quiz: {
+                    questions: [
+                        {
+                            question: "Fungsi apa yang Anda gunakan jika Anda ingin mengembalikan 'Ya' jika suatu angka lebih besar dari 100, dan 'Tidak' jika tidak?",
+                            options: [
+                                "`SUM`",
+                                "`AVERAGE`",
+                                "`IF`",
+                                "`COUNT`"
+                            ],
+                            answer: 2
+                        },
+                        {
+                            question: "Anda memiliki daftar karyawan dan departemen mereka. Fungsi apa yang paling cocok untuk mencari departemen seorang karyawan berdasarkan namanya?",
+                            options: [
+                                "`HLOOKUP`",
+                                "`VLOOKUP`",
+                                "`CONCATENATE`",
+                                "`TEXT`"
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Bagaimana cara menggabungkan teks dari sel `A1` ('Selamat') dan `B1` ('Datang') menjadi 'Selamat Datang' di sel `C1`? Berikan dua cara.",
+                            options: [
+                                "`=A1+B1` atau `=JOIN(A1, B1)`",
+                                "`=CONCATENATE(A1; B1)` atau `=A1 & B1`",
+                                "`=SUM(A1, B1)` atau `=TEXT(A1, B1)`",
+                                "`=MERGE(A1, B1)` atau `=A1 + B1`"
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Apa perbedaan utama antara `VLOOKUP` dan `HLOOKUP`?",
+                            options: [
+                                "`VLOOKUP` mencari secara horizontal, `HLOOKUP` mencari secara vertikal.",
+                                "`VLOOKUP` mencari di kolom pertama, `HLOOKUP` mencari di baris pertama.",
+                                "`VLOOKUP` untuk angka, `HLOOKUP` untuk teks.",
+                                "Tidak ada perbedaan, hanya nama yang berbeda."
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Jika sel `A1` berisi `0.25`, dan Anda ingin menampilkannya sebagai 'Diskon 25%', bagaimana Anda bisa melakukannya menggunakan fungsi `TEXT` dan operator `&`?",
+                            options: [
+                                "`='Diskon ' & A1 & '%'`",
+                                "`='Diskon ' & TEXT(A1; '0%')`",
+                                "`=CONCATENATE('Diskon '; A1; '%')`",
+                                "`='Diskon ' & A1*100 & '%'`"
+                            ],
+                            answer: 1
+                        }
+                    ]
+                }
+            },
+            {
+                title: "Modul 6: Membuat Grafik dan Bagan",
+                content: `
+                    # Modul 6: Membuat Grafik dan Bagan
+
+                    Visualisasi data melalui grafik dan bagan sangat penting untuk memahami tren, perbandingan, dan pola dalam data Anda dengan cepat. Libre Calc menyediakan berbagai jenis grafik.
+
+                    ## Mengapa Menggunakan Grafik?
+
+                    * **Mempermudah Pemahaman**: Data numerik yang banyak sulit dipahami, grafik mengubahnya menjadi visual yang mudah dicerna.
+                    * **Mengungkap Tren**: Dengan cepat melihat naik turunnya data seiring waktu.
+                    * **Perbandingan Efektif**: Membandingkan berbagai kategori atau seri data.
+                    * **Presentasi**: Membuat presentasi data Anda lebih menarik dan profesional.
+
+                    ## Jenis-jenis Grafik Umum
+
+                    Libre Calc menawarkan berbagai jenis grafik, yang paling umum adalah:
+
+                    1.  **Grafik Kolom (Column Chart)**: Bagus untuk membandingkan nilai antar kategori.
+                    2.  **Grafik Batang (Bar Chart)**: Mirip dengan grafik kolom, tetapi batang-batangnya horizontal.
+                    3.  **Grafik Garis (Line Chart)**: Ideal untuk menunjukkan tren data seiring waktu.
+                    4.  **Grafik Pai (Pie Chart)**: Menunjukkan proporsi bagian dari keseluruhan.
+                    5.  **Grafik Area (Area Chart)**: Mirip grafik garis, tetapi area di bawah garis diisi warna, berguna untuk menunjukkan volume.
+                    6.  **Grafik Sebar (Scatter Chart)**: Untuk menunjukkan hubungan antara dua set data numerik.
+
+                    ## Langkah-langkah Membuat Grafik
+
+                    1.  **Pilih Data**: Sorot rentang sel yang berisi data yang ingin Anda grafikkan, termasuk header kolom/baris jika ada. Header ini akan menjadi label grafik Anda.
+                    2.  **Mulai Wizard Bagan**: Klik \`Insert > Chart...\` atau klik ikon \`Chart\` di Toolbar Standar. Ini akan membuka Chart Wizard.
+                    3.  **Pilih Jenis Bagan**: Di langkah pertama Chart Wizard, pilih jenis grafik yang paling sesuai dengan data dan tujuan Anda. Anda bisa melihat pratinjau.
+                    4.  **Rentang Data**: Pastikan rentang data sudah benar. Anda juga bisa menentukan apakah seri data Anda ada di baris atau kolom.
+                    5.  **Seri Data**: Di langkah ini, Anda bisa mengatur seri data (misal: mana yang menjadi sumbu X, mana yang menjadi sumbu Y, nama seri).
+                    6.  **Elemen Bagan**: Berikan judul grafik, judul sumbu (X dan Y), tampilkan legenda, dan tambahkan label data jika diperlukan.
+                    7.  **Selesai**: Klik \`Finish\`. Grafik akan muncul di lembar kerja Anda.
+
+                    ## Memformat Grafik
+
+                    Setelah grafik dibuat, Anda bisa memformatnya untuk mempercantik tampilannya:
+
+                    * **Klik Ganda pada Grafik**: Untuk masuk ke mode edit grafik.
+                    * **Klik Kanan pada Elemen Grafik**: Klik kanan pada judul, sumbu, batang/garis, legenda, atau area grafik untuk mengakses opsi pemformatan spesifik (misal: warna, font, batas, pola).
+                    * **Menu \`Format\`**: Saat grafik dalam mode edit, menu \`Format\` di Baris Menu akan menampilkan opsi pemformatan khusus grafik.
+                `,
+                interactive: `
+                    ## Interaktif: Mari Berlatih!
+
+                    1.  Buat data penjualan bulanan sederhana:
+                        * \`A1\`: \`Bulan\`, \`B1\`: \`Penjualan\`
+                        * \`A2\`: \`Jan\`, \`B2\`: \`150\`
+                        * \`A3\`: \`Feb\`, \`B3\`: \`180\`
+                        * \`A4\`: \`Mar\`, \`B4\`: \`160\`
+                        * \`A5\`: \`Apr\`, \`B5\`: \`200\`
+                    2.  Pilih rentang data \`A1:B5\`.
+                    3.  Klik \`Insert > Chart...\`.
+                    4.  Pilih \`Column Chart\` (Grafik Kolom) sebagai jenis grafik.
+                    5.  Berikan judul grafik "Penjualan Bulanan".
+                    6.  Berikan judul sumbu X "Bulan" dan sumbu Y "Jumlah Penjualan".
+                    7.  Klik \`Finish\`.
+                    8.  Setelah grafik muncul, klik ganda pada grafik, lalu coba:
+                        * Ubah warna batang kolom.
+                        * Ubah warna latar belakang area grafik.
+                        * Ubah ukuran font judul grafik.
+
+                    *(Karena ini simulasi, Anda bisa membayangkan melakukan langkah-langkah ini di Libre Calc sungguhan. Tidak ada input langsung di sini.)*
+                `,
+                quiz: {
+                    questions: [
+                        {
+                            question: "Grafik jenis apa yang paling cocok untuk menunjukkan tren pertumbuhan penjualan dari waktu ke waktu?",
+                            options: [
+                                "Grafik Pai",
+                                "Grafik Kolom",
+                                "Grafik Garis",
+                                "Grafik Batang"
+                            ],
+                            answer: 2
+                        },
+                        {
+                            question: "Jika Anda ingin menunjukkan proporsi pengeluaran Anda dalam berbagai kategori (misal: makanan, transportasi, hiburan), grafik jenis apa yang paling sesuai?",
+                            options: [
+                                "Grafik Pai",
+                                "Grafik Garis",
+                                "Grafik Sebar",
+                                "Grafik Kolom"
+                            ],
+                            answer: 0
+                        },
+                        {
+                            question: "Apa langkah pertama yang harus Anda lakukan sebelum memulai Chart Wizard untuk membuat grafik?",
+                            options: [
+                                "Memilih jenis grafik.",
+                                "Memilih data yang akan digrafikkan.",
+                                "Memberi judul grafik.",
+                                "Menentukan warna grafik."
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Bagaimana cara mengubah judul sumbu X pada grafik yang sudah dibuat?",
+                            options: [
+                                "Klik kanan pada legenda.",
+                                "Klik ganda pada grafik untuk masuk mode edit, lalu klik kanan pada sumbu X.",
+                                "Klik ikon 'Simpan'.",
+                                "Tidak bisa diubah setelah dibuat."
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Apa manfaat utama menggunakan grafik dibandingkan hanya melihat data dalam tabel?",
+                            options: [
+                                "Membuat data lebih sulit dipahami.",
+                                "Membuat file lebih besar.",
+                                "Mempermudah pemahaman tren dan perbandingan data secara visual.",
+                                "Hanya untuk tujuan estetika."
+                            ],
+                            answer: 2
+                        }
+                    ]
+                }
+            },
+            {
+                title: "Modul 7: Manajemen Data (Sortir, Filter, Subtotal)",
+                content: `
+                    # Modul 7: Manajemen Data (Sortir, Filter, Subtotal)
+
+                    Mengelola data adalah keterampilan penting di Libre Calc. Modul ini akan membahas cara mengurutkan, memfilter, dan membuat subtotal untuk menganalisis data Anda.
+
+                    ## 1. Mengurutkan Data (Sorting)
+
+                    Mengurutkan data berarti mengatur ulang baris-baris dalam lembar kerja berdasarkan nilai di satu atau lebih kolom, baik secara menaik (A-Z, 0-9) atau menurun (Z-A, 9-0).
+
+                    **Langkah-langkah Mengurutkan Data:**
+
+                    1.  **Pilih Rentang Data**: Sorot seluruh rentang data yang ingin Anda urutkan, termasuk header jika ada. **Penting**: Jangan hanya memilih satu kolom, karena ini akan memisahkan data dari barisnya!
+                    2.  **Buka Dialog Sortir**: Klik \`Data > Sort...\`.
+                    3.  **Pilih Kriteria Sortir**:
+                        * **Sort Criteria 1**: Pilih kolom pertama yang akan menjadi dasar pengurutan.
+                        * **Order**: Pilih \`Ascending\` (menaik) atau \`Descending\` (menurun).
+                        * Anda bisa menambahkan kriteria sortir kedua dan ketiga jika ada nilai yang sama pada kriteria pertama.
+                    4.  **Opsi Tambahan**:
+                        * **Range contains column labels**: Centang ini jika baris pertama dari rentang yang Anda pilih adalah header kolom. Ini akan mencegah header ikut diurutkan.
+                    5.  **Klik OK**.
+
+                    **Contoh**: Mengurutkan daftar siswa berdasarkan nama (menaik) dan kemudian berdasarkan nilai (menurun).
+
+                    ## 2. Memfilter Data (Filtering)
+
+                    Memfilter data memungkinkan Anda hanya menampilkan baris-baris yang memenuhi kriteria tertentu, menyembunyikan baris lain untuk sementara.
+
+                    ### a. Filter Otomatis (AutoFilter)
+
+                    Ini adalah cara termudah untuk memfilter.
+
+                    **Langkah-langkah Menggunakan Filter Otomatis:**
+
+                    1.  **Pilih Sel di Header Data**: Klik pada salah satu sel di baris header tabel Anda.
+                    2.  **Aktifkan AutoFilter**: Klik \`Data > AutoFilter\`. Panah drop-down akan muncul di samping setiap header kolom.
+                    3.  **Terapkan Filter**: Klik panah drop-down di kolom yang ingin Anda filter.
+                        * Anda bisa mencentang/menghilangkan centang nilai tertentu.
+                        * Pilih \`Standard Filter...\` untuk kriteria yang lebih kompleks (misal: lebih besar dari, berisi teks tertentu).
+                    4.  **Hapus Filter**: Untuk menghapus filter dari satu kolom, klik panah drop-down dan pilih \`Clear Filter\`. Untuk menghapus semua filter, klik \`Data > AutoFilter\` lagi.
+
+                    **Contoh**: Menampilkan hanya produk dengan harga di atas Rp 100.000.
+
+                    ### b. Filter Standar (Standard Filter)
+
+                    Untuk filter yang lebih kompleks dengan beberapa kriteria.
+
+                    1.  **Pilih Rentang Data** atau klik di dalam tabel.
+                    2.  Klik \`Data > Filter > Standard Filter...\`.
+                    3.  Atur kriteria Anda (Field Name, Condition, Value) dan gunakan operator \`AND\`/\`OR\` untuk beberapa kriteria.
+
+                    ## 3. Subtotal
+
+                    Fitur Subtotal memungkinkan Anda menghitung ringkasan (seperti jumlah, rata-rata, hitungan) untuk kelompok data yang serupa. **Penting: Data harus diurutkan terlebih dahulu berdasarkan kolom yang akan menjadi dasar pengelompokan subtotal.**
+
+                    **Langkah-langkah Menggunakan Subtotal:**
+
+                    1.  **Urutkan Data**: Pastikan data Anda diurutkan berdasarkan kolom yang ingin Anda kelompokkan (misal: \`Kategori Produk\`).
+                    2.  **Pilih Rentang Data**: Sorot seluruh rentang data Anda.
+                    3.  **Buka Dialog Subtotal**: Klik \`Data > Subtotals...\`.
+                    4.  **Pengaturan Subtotal**:
+                        * **Group by**: Pilih kolom yang sudah Anda urutkan (misal: \`Kategori Produk\`).
+                        * **Calculate subtotals for**: Centang kolom-kolom yang ingin Anda hitung subtotals-nya (misal: \`Penjualan\`).
+                        * **Use function**: Pilih fungsi agregat (misal: \`Sum\`, \`Average\`, \`Count\`, \`Max\`, \`Min\`).
+                    5.  **Klik OK**. Libre Calc akan menyisipkan baris subtotal dan total keseluruhan.
+                    6.  **Hapus Subtotal**: Klik \`Data > Subtotals...\` lagi, lalu klik \`Remove\`.
+
+                    **Contoh**: Menghitung total penjualan untuk setiap kategori produk.
+                `,
+                interactive: `
+                    ## Interaktif: Mari Berlatih!
+
+                    1.  Buat tabel data sederhana:
+                        * \`A1\`: \`Departemen\`, \`B1\`: \`Nama Karyawan\`, \`C1\`: \`Gaji\`
+                        * \`A2\`: \`HR\`, \`B2\`: \`Andi\`, \`C2\`: \`5000000\`
+                        * \`A3\`: \`IT\`, \`B3\`: \`Budi\`, \`C3\`: \`7000000\`
+                        * \`A4\`: \`HR\`, \`B4\`: \`Citra\`, \`C4\`: \`5500000\`
+                        * \`A5\`: \`Marketing\`, \`B5\`: \`Dina\`, \`C5\`: \`6000000\`
+                        * \`A6\`: \`IT\`, \`B6\`: \`Eko\`, \`C6\`: \`7200000\`
+                    2.  **Sortir**: Urutkan seluruh tabel berdasarkan \`Departemen\` (menaik), lalu \`Gaji\` (menurun).
+                    3.  **Filter**: Aktifkan AutoFilter. Tampilkan hanya karyawan dari departemen \`IT\`. Hapus filter setelahnya.
+                    4.  **Subtotal**:
+                        * Pastikan tabel sudah diurutkan berdasarkan \`Departemen\`.
+                        * Gunakan fitur Subtotal untuk menghitung \`SUM\` dari \`Gaji\` untuk setiap \`Departemen\`.
+                        * Perhatikan hasil subtotal dan total keseluruhan.
+                        * Hapus subtotal setelahnya.
+
+                    *(Karena ini simulasi, Anda bisa membayangkan melakukan langkah-langkah ini di Libre Calc sungguhan. Tidak ada input langsung di sini.)*
+                `,
+                quiz: {
+                    questions: [
+                        {
+                            question: "Jika Anda ingin melihat hanya data penjualan dari bulan 'Maret', fitur manajemen data apa yang akan Anda gunakan?",
+                            options: [
+                                "Sorting",
+                                "Filtering",
+                                "Subtotal",
+                                "Pivot Table"
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Apa syarat utama yang harus dipenuhi data Anda sebelum Anda bisa menggunakan fitur Subtotal secara efektif?",
+                            options: [
+                                "Data harus diformat sebagai mata uang.",
+                                "Data harus diurutkan berdasarkan kolom yang akan menjadi dasar pengelompokan subtotal.",
+                                "Data harus memiliki setidaknya 100 baris.",
+                                "Data harus berisi teks saja."
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Anda memiliki daftar nama siswa dan nilai mereka. Bagaimana cara mengurutkan daftar tersebut agar siswa dengan nilai tertinggi muncul di paling atas?",
+                            options: [
+                                "Sortir berdasarkan nama secara menaik.",
+                                "Sortir berdasarkan nilai secara menurun.",
+                                "Filter berdasarkan nilai tertinggi.",
+                                "Gunakan Subtotal."
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Apa perbedaan antara AutoFilter dan Standard Filter? Kapan Anda akan menggunakan Standard Filter?",
+                            options: [
+                                "AutoFilter untuk kriteria sederhana, Standard Filter untuk kriteria kompleks dengan beberapa kondisi.",
+                                "AutoFilter hanya untuk angka, Standard Filter untuk teks.",
+                                "AutoFilter lebih lambat dari Standard Filter.",
+                                "Tidak ada perbedaan, hanya nama yang berbeda."
+                            ],
+                            answer: 0
+                        },
+                        {
+                            question: "Jika Anda hanya memilih satu kolom dan mengurutkannya, apa risiko yang mungkin terjadi pada data Anda?",
+                            options: [
+                                "Data akan terhapus.",
+                                "Data akan menjadi tidak valid.",
+                                "Data di kolom lain tidak akan ikut terurut, menyebabkan ketidaksesuaian data.",
+                                "Libre Calc akan crash."
+                            ],
+                            answer: 2
+                        }
+                    ]
+                }
+            },
+            {
+                title: "Modul 8: Pivot Table (Tabel Pivot)",
+                content: `
+                    # Modul 8: Pivot Table (Tabel Pivot)
+
+                    Pivot Table adalah alat analisis data yang sangat ampuh di Libre Calc. Ini memungkinkan Anda meringkas, menganalisis, menjelajahi, dan menyajikan data Anda dengan cepat, bahkan dari kumpulan data yang sangat besar.
+
+                    ## Apa itu Pivot Table?
+
+                    Bayangkan Anda memiliki data penjualan yang sangat rinci, mencakup produk, wilayah, bulan, dan jumlah penjualan. Jika Anda ingin tahu total penjualan per wilayah, atau penjualan per produk di setiap wilayah, membuat rumus manual akan sangat rumit.
+
+                    Pivot Table memungkinkan Anda "memutar" (pivot) data Anda untuk melihatnya dari berbagai perspektif, meringkasnya secara otomatis berdasarkan kategori yang Anda pilih.
+
+                    ![Contoh Pivot Table](https://placehold.co/600x300/e0e0e0/000000?text=Contoh+Pivot+Table)
+
+                    ## Komponen Pivot Table
+
+                    Saat Anda membuat Pivot Table, Anda akan berinteraksi dengan empat area utama:
+
+                    1.  **Row Fields (Bidang Baris)**: Kolom yang datanya ingin Anda tampilkan sebagai baris di Pivot Table.
+                    2.  **Column Fields (Bidang Kolom)**: Kolom yang datanya ingin Anda tampilkan sebagai kolom di Pivot Table.
+                    3.  **Data Fields (Bidang Data)**: Kolom yang berisi nilai yang ingin Anda hitung atau ringkas (misal: Penjualan, Jumlah). Anda bisa memilih fungsi agregasi (SUM, AVERAGE, COUNT, dll.).
+                    4.  **Filter Fields (Bidang Filter)**: Kolom yang ingin Anda gunakan untuk memfilter data di Pivot Table secara keseluruhan.
+
+                    ## Langkah-langkah Membuat Pivot Table
+
+                    1.  **Siapkan Data Sumber**: Pastikan data Anda bersih dan terstruktur dengan baik (setiap kolom memiliki header unik, tidak ada baris atau kolom kosong yang mengganggu di tengah data).
+                    2.  **Pilih Rentang Data**: Sorot seluruh rentang data yang ingin Anda gunakan sebagai sumber Pivot Table.
+                    3.  **Mulai Pivot Table Wizard**: Klik \`Data > Pivot Table > Create...\`.
+                    4.  **Pilih Sumber Data**: Biasanya, "Current selection" sudah benar jika Anda sudah memilih rentang data. Klik \`OK\`.
+                    5.  **Tata Letak Pivot Table**: Ini adalah bagian terpenting. Anda akan melihat daftar "Available Fields" (kolom dari data sumber Anda).
+                        * **Seret dan Lepas (Drag and Drop)**: Seret nama kolom dari "Available Fields" ke area yang sesuai:
+                            * Ke "Row Fields" jika Anda ingin item tersebut menjadi baris.
+                            * Ke "Column Fields" jika Anda ingin item tersebut menjadi kolom.
+                            * Ke "Data Fields" jika Anda ingin menghitung nilai dari kolom tersebut. Klik dua kali pada bidang di "Data Fields" untuk mengubah fungsi agregasi (misal: dari Sum menjadi Average).
+                            * Ke "Filter Fields" jika Anda ingin menambahkan filter.
+                    6.  **Pilih Lokasi Hasil**:
+                        * **New sheet**: Direkomendasikan, akan membuat lembar kerja baru untuk Pivot Table.
+                        * **Current sheet**: Akan menempatkan Pivot Table di lembar kerja yang sama.
+                    7.  **Klik OK**. Pivot Table akan dibuat.
+
+                    ## Mengubah dan Memperbarui Pivot Table
+
+                    * **Mengubah Tata Letak**: Klik ganda pada Pivot Table untuk membuka kembali dialog tata letak dan mengatur ulang bidang.
+                    * **Memperbarui Data**: Jika data sumber Anda berubah, Pivot Table tidak akan otomatis diperbarui. Klik kanan pada Pivot Table, lalu pilih \`Refresh\`.
+                `,
+                interactive: `
+                    ## Interaktif: Mari Berlatih!
+
+                    1.  Buat tabel data penjualan yang lebih besar:
+                        * \`A1\`: \`Tanggal\`, \`B1\`: \`Produk\`, \`C1\`: \`Wilayah\`, \`D1\`: \`Penjualan\`
+                        * \`A2\`: \`01/01/2025\`, \`B2\`: \`Laptop\`, \`C2\`: \`Barat\`, \`D2\`: \`10000000\`
+                        * \`A3\`: \`01/01/2025\`, \`B3\`: \`Mouse\`, \`C3\`: \`Timur\`, \`D3\`: \`500000\`
+                        * \`A4\`: \`02/01/2025\`, \`B4\`: \`Keyboard\`, \`C4\`: \`Barat\`, \`D4\`: \`750000\`
+                        * \`A5\`: \`02/01/2025\`, \`B5\`: \`Laptop\`, \`C5\`: \`Timur\`, \`D5\`: \`12000000\`
+                        * \`A6\`: \`03/01/2025\`, \`B6\`: \`Mouse\`, \`C6\`: \`Utara\`, \`D6\`: \`600000\`
+                        * \`A7\`: \`03/01/2025\`, \`B7\`: \`Keyboard\`, \`C7\`: \`Selatan\`, \`D7\`: \`800000\`
+                        * Tambahkan beberapa baris data lagi dengan variasi produk, wilayah, dan penjualan.
+                    2.  Pilih seluruh rentang data Anda.
+                    3.  Klik \`Data > Pivot Table > Create...\`.
+                    4.  Di dialog tata letak:
+                        * Seret \`Wilayah\` ke "Row Fields".
+                        * Seret \`Produk\` ke "Column Fields".
+                        * Seret \`Penjualan\` ke "Data Fields". Pastikan fungsinya adalah \`Sum\`.
+                    5.  Pilih \`New sheet\` sebagai lokasi hasil. Klik \`OK\`.
+                    6.  Perhatikan Pivot Table yang dihasilkan. Ini menunjukkan total penjualan untuk setiap produk di setiap wilayah.
+                    7.  Coba klik ganda pada Pivot Table untuk mengubah tata letaknya:
+                        * Pindahkan \`Produk\` dari "Column Fields" ke "Row Fields" (di bawah \`Wilayah\`). Bagaimana tampilannya sekarang?
+                        * Pindahkan \`Wilayah\` dari "Row Fields" ke "Column Fields".
+                        * Ubah fungsi agregasi \`Penjualan\` dari \`Sum\` menjadi \`Average\`.
+                    8.  Setelah selesai bereksperimen, kembalikan ke tata letak awal (Wilayah di Baris, Produk di Kolom, Penjualan di Data dengan SUM).
+
+                    *(Karena ini simulasi, Anda bisa membayangkan melakukan langkah-langkah ini di Libre Calc sungguhan. Tidak ada input langsung di sini.)*
+                `,
+                quiz: {
+                    questions: [
+                        {
+                            question: "Apa tujuan utama dari Pivot Table?",
+                            options: [
+                                "Membuat grafik statis.",
+                                "Meringkas dan menganalisis data besar.",
+                                "Melindungi sel dari perubahan.",
+                                "Mengurutkan data secara otomatis."
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Jika Anda ingin melihat total penjualan per kategori produk, kolom `Kategori Produk` akan Anda letakkan di area Pivot Table yang mana? Dan kolom `Penjualan` di area mana?",
+                            options: [
+                                "Kategori Produk di Data Fields, Penjualan di Row Fields.",
+                                "Kategori Produk di Row Fields, Penjualan di Data Fields.",
+                                "Kategori Produk di Filter Fields, Penjualan di Column Fields.",
+                                "Kategori Produk di Column Fields, Penjualan di Filter Fields."
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Apa yang harus Anda lakukan jika data sumber Anda berubah setelah Pivot Table dibuat?",
+                            options: [
+                                "Membuat Pivot Table baru dari awal.",
+                                "Mengklik kanan Pivot Table lalu memilih `Refresh`.",
+                                "Menekan tombol F5.",
+                                "Mengedit data langsung di Pivot Table."
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Anda memiliki data penjualan per bulan dan per jenis produk. Bagaimana Anda akan mengatur Pivot Table untuk melihat total penjualan setiap bulan, dengan rincian per jenis produk di setiap bulan?",
+                            options: [
+                                "Bulan di Column Fields, Jenis Produk di Data Fields, Penjualan di Row Fields.",
+                                "Bulan di Row Fields, Jenis Produk di Column Fields, Penjualan di Data Fields.",
+                                "Bulan di Filter Fields, Jenis Produk di Row Fields, Penjualan di Column Fields.",
+                                "Bulan di Data Fields, Jenis Produk di Row Fields, Penjualan di Column Fields."
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Mengapa penting untuk memiliki data sumber yang bersih dan terstruktur sebelum membuat Pivot Table?",
+                            options: [
+                                "Agar Pivot Table terlihat lebih indah.",
+                                "Agar Libre Calc tidak crash.",
+                                "Untuk memastikan akurasi dan kemudahan analisis data di Pivot Table.",
+                                "Karena ini adalah persyaratan wajib dari Libre Calc."
+                            ],
+                            answer: 2
+                        }
+                    ]
+                }
+            },
+            {
+                title: "Modul 9: Proteksi dan Validasi Data",
+                content: `
+                    # Modul 9: Proteksi dan Validasi Data
+
+                    Melindungi lembar kerja dan memvalidasi data adalah langkah penting untuk menjaga integritas dan akurasi data Anda, terutama jika lembar kerja akan digunakan oleh banyak orang atau berisi informasi sensitif.
+
+                    ## 1. Proteksi Lembar Kerja (Sheet Protection)
+
+                    Proteksi lembar kerja mencegah pengguna lain (atau diri Anda sendiri secara tidak sengaja) mengubah, menghapus, atau memindahkan data di sel tertentu. Anda bisa mengatur kata sandi untuk proteksi.
+
+                    **Langkah-langkah Memproteksi Lembar Kerja:**
+
+                    1.  **Pilih Sel yang Ingin Dikunci (Opsional, tapi Direkomendasikan)**: Secara default, semua sel di Libre Calc "terkunci" (locked) secara properti, tetapi proteksi baru aktif setelah lembar kerja diproteksi. Jika Anda ingin beberapa sel tetap bisa diedit setelah proteksi lembar kerja diaktifkan, Anda harus membuka kunci sel-sel tersebut terlebih dahulu.
+                        * Pilih sel yang ingin tetap bisa diedit.
+                        * Klik kanan, pilih \`Format Cells...\`.
+                        * Pergi ke tab \`Cell Protection\`.
+                        * Hapus centang pada \`Protected\`. Klik \`OK\`.
+                    2.  **Proteksi Lembar Kerja**:
+                        * Klik \`Tools > Protect Sheet...\`.
+                        * Centang opsi yang ingin Anda proteksi (misal: \`Select protected cells\`, \`Select unprotected cells\`, \`Insert rows\`, \`Delete columns\`, dll.).
+                        * **Password (Opsional)**: Masukkan kata sandi jika Anda ingin membatasi akses proteksi hanya untuk yang tahu kata sandi.
+                        * Klik \`OK\`.
+
+                    **Membuka Proteksi Lembar Kerja**:
+                    Klik \`Tools > Protect Sheet...\` lagi. Jika ada kata sandi, Anda akan diminta memasukkannya.
+
+                    ## 2. Validasi Data (Data Validation)
+
+                    Validasi data memungkinkan Anda mengatur aturan untuk data yang dapat dimasukkan ke dalam sel. Ini membantu mencegah kesalahan input dan memastikan data konsisten.
+
+                    **Langkah-langkah Mengatur Validasi Data:**
+
+                    1.  **Pilih Sel/Rentang Sel**: Sorot sel tempat Anda ingin menerapkan aturan validasi.
+                    2.  **Buka Dialog Validasi Data**: Klik \`Data > Validity...\`.
+                    3.  **Tab \`Criteria\`**:
+                        * **Allow**: Pilih jenis data yang diizinkan:
+                            * \`Whole number\`: Hanya angka bulat.
+                            * \`Decimal\`: Angka desimal.
+                            * \`Date\`: Hanya tanggal.
+                            * \`Time\`: Hanya waktu.
+                            * \`List\`: Pilih dari daftar yang Anda sediakan.
+                            * \`Text length\`: Panjang teks tertentu.
+                            * \`Custom\`: Gunakan rumus sendiri.
+                        * **Data**: Pilih operator perbandingan (misal: \`between\`, \`equal to\`, \`greater than\`).
+                        * **Value**: Masukkan nilai atau rentang nilai yang diizinkan.
+                        * **Contoh \`List\`**: Jika Anda memilih \`List\`, Anda bisa mengetik item daftar secara langsung (dipisahkan koma) atau menunjuk ke rentang sel yang berisi daftar.
+                    4.  **Tab \`Input Help\` (Pesan Bantuan Input)**:
+                        * Centang \`Show input help when cell is selected\`.
+                        * Berikan \`Title\` dan \`Help message\`. Pesan ini akan muncul saat sel dipilih, memberi tahu pengguna apa yang diharapkan.
+                    5.  **Tab \`Error Alert\` (Peringatan Kesalahan)**:
+                        * Centang \`Show error message when invalid values are entered\`.
+                        * Pilih \`Action\` (Stop, Warning, Information, Macro). \`Stop\` akan mencegah input yang tidak valid.
+                        * Berikan \`Title\` dan \`Error message\`. Pesan ini akan muncul jika pengguna memasukkan data yang tidak valid.
+                    6.  **Klik OK**.
+
+                    **Contoh Validasi Data**:
+                    * Memastikan usia yang dimasukkan adalah angka bulat antara 18 dan 65.
+                    * Memastikan jenis kelamin yang dimasukkan hanya "Pria" atau "Wanita" dari daftar pilihan.
+                `,
+                interactive: `
+                    ## Interaktif: Mari Berlatih!
+
+                    1.  Buat tabel sederhana:
+                        * \`A1\`: \`Nama\`, \`B1\`: \`Usia\`, \`C1\`: \`Departemen\`
+                        * \`A2\`: \`Budi\`
+                        * \`A3\`: \`Siti\`
+                    2.  **Proteksi**:
+                        * Pilih sel \`A2:A3\`. Klik kanan, \`Format Cells...\`, tab \`Cell Protection\`, pastikan \`Protected\` tercentang.
+                        * Pilih sel \`B2:C3\`. Klik kanan, \`Format Cells...\`, tab \`Cell Protection\`, **hilangkan centang** \`Protected\`. Ini berarti sel-sel ini akan tetap bisa diedit.
+                        * Sekarang, proteksi seluruh lembar kerja: \`Tools > Protect Sheet...\`. Biarkan semua opsi default tercentang, dan **jangan gunakan kata sandi** untuk latihan ini. Klik \`OK\`.
+                        * Coba edit sel \`A2\` (Nama). Anda seharusnya tidak bisa.
+                        * Coba edit sel \`B2\` (Usia). Anda seharusnya bisa.
+                        * Buka proteksi lembar kerja (\`Tools > Protect Sheet...\`).
+                    3.  **Validasi Data**:
+                        * Pilih sel \`B2:B10\` (untuk kolom Usia).
+                        * Klik \`Data > Validity...\`.
+                        * Di tab \`Criteria\`:
+                            * \`Allow\`: \`Whole number\`
+                            * \`Data\`: \`between\`
+                            * \`Minimum\`: \`18\`
+                            * \`Maximum\`: \`65\`
+                        * Di tab \`Input Help\`:
+                            * Centang \`Show input help when cell is selected\`.
+                            * \`Title\`: \`Input Usia\`
+                            * \`Help message\`: \`Masukkan usia dalam angka bulat antara 18 dan 65.\`
+                        * Di tab \`Error Alert\`:
+                            * Centang \`Show error message when invalid values are entered\`.
+                            * \`Action\`: \`Stop\`
+                            * \`Title\`: \`Kesalahan Input Usia\`
+                            * \`Error message\`: \`Usia harus angka bulat antara 18 dan 65. Silakan coba lagi.\`
+                        * Klik \`OK\`.
+                        * Coba masukkan \`15\` di \`B2\`. Apa yang terjadi?
+                        * Coba masukkan \`70\` di \`B3\`. Apa yang terjadi?
+                        * Coba masukkan \`30\` di \`B4\`. Apa yang terjadi?
+                    4.  **Validasi Data (List)**:
+                        * Pilih sel \`C2:C10\` (untuk kolom Departemen).
+                        * Klik \`Data > Validity...\`.
+                        * Di tab \`Criteria\`:
+                            * \`Allow\`: \`List\`
+                            * \`Entries\`: Ketik \`HR, IT, Marketing, Keuangan\` (dipisahkan koma).
+                        * Klik \`OK\`.
+                        * Coba pilih departemen dari drop-down di sel \`C2\`.
+
+                    *(Karena ini simulasi, Anda bisa membayangkan melakukan langkah-langkah ini di Libre Calc sungguhan. Tidak ada input langsung di sini.)*
+                `,
+                quiz: {
+                    questions: [
+                        {
+                            question: "Apa perbedaan utama antara 'Proteksi Lembar Kerja' dan 'Validasi Data'?",
+                            options: [
+                                "Proteksi untuk mencegah pengeditan, Validasi untuk mengatur aturan input data.",
+                                "Proteksi hanya untuk teks, Validasi hanya untuk angka.",
+                                "Proteksi memerlukan kata sandi, Validasi tidak.",
+                                "Tidak ada perbedaan."
+                            ],
+                            answer: 0
+                        },
+                        {
+                            question: "Jika Anda ingin agar pengguna hanya bisa memilih dari daftar 'Pria' atau 'Wanita' di sebuah sel, jenis validasi data apa yang akan Anda gunakan?",
+                            options: [
+                                "Whole number",
+                                "Date",
+                                "List",
+                                "Text length"
+                            ],
+                            answer: 2
+                        },
+                        {
+                            question: "Anda ingin agar sebuah sel hanya menerima angka desimal yang lebih besar dari 0. Bagaimana Anda mengatur kriteria validasi data untuk ini?",
+                            options: [
+                                "Allow: Decimal, Data: greater than, Value: 0",
+                                "Allow: Whole number, Data: between, Minimum: 1, Maximum: 100",
+                                "Allow: List, Entries: 1,2,3...",
+                                "Allow: Any value"
+                            ],
+                            answer: 0
+                        },
+                        {
+                            question: "Jika Anda memproteksi lembar kerja tanpa membuka kunci sel apapun, apa yang akan terjadi ketika pengguna mencoba mengedit sel manapun?",
+                            options: [
+                                "Sel akan otomatis terhapus.",
+                                "Pengguna akan bisa mengedit semua sel.",
+                                "Pengguna tidak akan bisa mengedit sel manapun.",
+                                "Libre Calc akan crash."
+                            ],
+                            answer: 2
+                        },
+                        {
+                            question: "Apa manfaat dari menambahkan 'Pesan Bantuan Input' pada validasi data?",
+                            options: [
+                                "Untuk menampilkan pesan kesalahan setelah input yang salah.",
+                                "Untuk mencegah input data sama sekali.",
+                                "Untuk memberi tahu pengguna apa yang diharapkan saat sel dipilih.",
+                                "Untuk mengubah warna sel."
+                            ],
+                            answer: 2
+                        }
+                    ]
+                }
+            },
+            {
+                title: "Modul 10: Makro dan Automatisasi (Dasar)",
+                content: `
+                    # Modul 10: Makro dan Automatisasi (Dasar)
+
+                    Makro adalah serangkaian perintah yang direkam dan dapat dijalankan kembali secara otomatis. Ini sangat berguna untuk mengotomatisasi tugas-tugas yang berulang di Libre Calc, menghemat waktu dan mengurangi kesalahan.
+
+                    ## Apa itu Makro?
+
+                    Bayangkan Anda sering melakukan serangkaian langkah yang sama berulang kali, seperti memformat tabel, menyalin data ke lokasi tertentu, atau menjalankan serangkaian perhitungan. Makro memungkinkan Anda merekam langkah-langkah ini sekali, lalu menjalankannya kapan saja dengan satu klik tombol atau pintasan keyboard.
+
+                    Libre Calc menggunakan bahasa pemrograman bernama **LibreOffice Basic** untuk makro.
+
+                    ## Merekam Makro Sederhana
+
+                    Merekam makro adalah cara termudah untuk memulai. Libre Calc akan "mendengarkan" tindakan Anda dan mengubahnya menjadi kode Basic.
+
+                    **Langkah-langkah Merekam Makro:**
+
+                    1.  **Persiapan**: Pastikan lembar kerja Anda siap dan Anda tahu persis langkah-langkah yang ingin Anda rekam.
+                    2.  **Mulai Rekam**: Klik \`Tools > Macros > Record Macro\`. Jendela kecil "Record Macro" akan muncul.
+                    3.  **Lakukan Tindakan Anda**: Lakukan semua tindakan yang ingin Anda otomatisasi di lembar kerja. Setiap klik, pengetikan, atau pemformatan akan direkam.
+                        * **Penting**: Hanya tindakan yang memengaruhi konten atau format sel yang direkam. Navigasi mouse (tanpa memilih atau mengedit) biasanya tidak direkam.
+                    4.  **Hentikan Rekaman**: Klik tombol \`Stop Recording\` di jendela "Record Macro".
+                    5.  **Simpan Makro**: Dialog "LibreOffice Basic Macros" akan muncul.
+                        * **Save macro in**: Pilih lokasi penyimpanan. Biasanya, Anda akan menyimpannya di dokumen saat ini (\`My Macros & Dialogs > Standard > Module1\`) atau di \`My Macros\` jika ingin tersedia di semua dokumen.
+                        * **Macro name**: Beri nama yang deskriptif untuk makro Anda (misal: \`FormatTabelPenjualan\`).
+                        * Klik \`Save\`.
+
+                    ## Menjalankan Makro
+
+                    Ada beberapa cara untuk menjalankan makro yang sudah direkam:
+
+                    1.  **Dari Menu Makro**:
+                        * Klik \`Tools > Macros > Run Macro...\`.
+                        * Pilih lokasi makro Anda (misal: \`My Macros & Dialogs > Standard > Module1\`).
+                        * Pilih nama makro Anda.
+                        * Klik \`Run\`.
+                    2.  **Menetapkan ke Tombol (Button)**:
+                        * Anda bisa membuat tombol di lembar kerja dan menetapkan makro ke tombol tersebut.
+                        * Klik \`View > Toolbars > Form Controls\`.
+                        * Klik ikon \`Push Button\` di toolbar Form Controls.
+                        * Gambar tombol di lembar kerja.
+                        * Klik kanan pada tombol yang baru dibuat, pilih \`Control Properties...\`.
+                        * Di tab \`Events\`, cari \`Mouse button released\` atau \`Execute action\`.
+                        * Klik tombol \`...\` di sampingnya.
+                        * Pilih \`Macro...\`, lalu cari dan pilih makro Anda.
+                        * Klik \`OK\`.
+                        * Untuk keluar dari mode desain dan bisa mengklik tombol, klik ikon \`Design Mode On/Off\` di toolbar Form Controls.
+                    3.  **Menetapkan ke Pintasan Keyboard**:
+                        * Klik \`Tools > Customize...\`.
+                        * Pilih tab \`Keyboard\`.
+                        * Di bagian \`Category\`, pilih \`LibreOffice Macros\`.
+                        * Di bagian \`Function\`, cari makro Anda.
+                        * Pilih kombinasi kunci yang ingin Anda gunakan (misal: \`Ctrl+Shift+F\`).
+                        * Klik \`Modify\`.
+                        * Klik \`OK\`.
+
+                    ## Melihat dan Mengedit Kode Makro
+
+                    Anda bisa melihat dan mengedit kode Basic yang dihasilkan oleh makro.
+
+                    1.  Klik \`Tools > Macros > Organize Macros > LibreOffice Basic...\`.
+                    2.  Pilih makro Anda.
+                    3.  Klik \`Edit\`. Ini akan membuka IDE (Integrated Development Environment) LibreOffice Basic.
+
+                    Anda tidak perlu menjadi programmer untuk merekam makro, tetapi memahami dasar-dasar kode dapat membantu Anda memodifikasi atau membuat makro yang lebih kompleks di masa depan.
+                `,
+                interactive: `
+                    ## Interaktif: Mari Berlatih!
+
+                    1.  Buat tabel data sederhana:
+                        * \`A1\`: \`Nama\`, \`B1\`: \`Nilai\`
+                        * \`A2\`: \`Ani\`, \`B2\`: \`85\`
+                        * \`A3\`: \`Budi\`, \`B3\`: \`60\`
+                    2.  **Rekam Makro Pemformatan**:
+                        * Klik \`Tools > Macros > Record Macro\`.
+                        * Pilih rentang \`A1:B1\`.
+                        * Buat teks menjadi **Bold** dan ubah warna latar belakang sel menjadi kuning.
+                        * Pilih rentang \`A2:B3\`.
+                        * Tambahkan batas (borders) di sekitar semua sel yang dipilih.
+                        * Hentikan rekaman (\`Stop Recording\`).
+                        * Beri nama makro \`FormatTabelDasar\` dan simpan.
+                    3.  **Uji Makro**:
+                        * Buat tabel baru di lembar kerja lain dengan data yang sama (atau hapus format dari tabel yang sudah ada).
+                        * Jalankan makro \`FormatTabelDasar\` dari menu \`Tools > Macros > Run Macro...\`. Apakah formatnya diterapkan?
+                    4.  **Buat Tombol untuk Makro**:
+                        * Aktifkan toolbar \`Form Controls\` (\`View > Toolbars > Form Controls\`).
+                        * Klik ikon \`Push Button\`.
+                        * Gambar tombol di lembar kerja Anda.
+                        * Klik kanan pada tombol, pilih \`Control Properties...\`.
+                        * Di tab \`Events\`, cari \`Mouse button released\`. Klik tombol \`...\` di sampingnya.
+                        * Pilih \`Macro...\`, lalu pilih makro \`FormatTabelDasar\` Anda.
+                        * Klik \`OK\` dua kali.
+                        * Nonaktifkan \`Design Mode\` di toolbar \`Form Controls\`.
+                        * Coba klik tombol yang Anda buat. Apakah makro berjalan?
+
+                    *(Karena ini simulasi, Anda bisa membayangkan melakukan langkah-langkah ini di Libre Calc sungguhan. Tidak ada input langsung di sini.)*
+                `,
+                quiz: {
+                    questions: [
+                        {
+                            question: "Apa fungsi utama dari makro di Libre Calc?",
+                            options: [
+                                "Untuk membuat grafik 3D.",
+                                "Untuk mengotomatisasi tugas-tugas yang berulang.",
+                                "Untuk memproteksi seluruh dokumen.",
+                                "Untuk menghitung rata-rata."
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Bahasa pemrograman apa yang digunakan LibreOffice untuk makro?",
+                            options: [
+                                "Python",
+                                "JavaScript",
+                                "LibreOffice Basic",
+                                "C++"
+                            ],
+                            answer: 2
+                        },
+                        {
+                            question: "Bagaimana cara Anda memulai proses perekaman makro?",
+                            options: [
+                                "Klik File > Save Macro",
+                                "Klik Tools > Macros > Record Macro",
+                                "Tekan Ctrl+M",
+                                "Klik Insert > Macro"
+                            ],
+                            answer: 1
+                        },
+                        {
+                            question: "Jika Anda merekam makro untuk memformat teks, tetapi Anda juga ingin makro tersebut menyalin data dari satu lokasi ke lokasi lain, apakah tindakan menyalin data akan terekam?",
+                            options: [
+                                "Ya, semua tindakan akan terekam.",
+                                "Tidak, hanya tindakan pemformatan yang terekam.",
+                                "Tergantung pada jenis data.",
+                                "Hanya jika Anda mengklik tombol 'Record' lagi."
+                            ],
+                            answer: 0
+                        },
+                        {
+                            question: "Sebutkan setidaknya dua cara untuk menjalankan makro yang sudah direkam.",
+                            options: [
+                                "Dari menu Makro atau menetapkannya ke tombol.",
+                                "Dengan mengetik namanya di sel atau menekan Enter.",
+                                "Dengan mengirim email ke LibreOffice support.",
+                                "Dengan mencetak dokumen."
+                            ],
+                            answer: 0
+                        }
+                    ]
+                }
+            }
+        ];
+
+        let currentModuleIndex = -1; // -1 means no module is currently displayed in detail
+        let quizCompleted = false;
+        let quizScore = 0;
+        let totalQuestions = 0;
+
+        // DOM Elements
+        const moduleCardsContainer = document.getElementById('module-cards-container');
+        const moduleDetailSection = document.getElementById('module-detail-section');
+        const moduleDetailTitle = document.getElementById('module-detail-title');
+        const moduleContentDiv = document.getElementById('module-content');
+        const moduleInteractiveDiv = document.getElementById('module-interactive');
+        const quizSection = document.getElementById('quiz-section');
+        const quizQuestionsContainer = document.getElementById('quiz-questions-container');
+        const submitQuizBtn = document.getElementById('submit-quiz-btn');
+        const quizResultsDiv = document.getElementById('quiz-results');
+        const prevModuleBtn = document.getElementById('prev-module-btn');
+        const nextModuleBtn = document.getElementById('next-module-btn');
+        const homeLink = document.getElementById('homeLink');
+
+        // Function to render Markdown to HTML
+        function renderMarkdown(markdownText) {
+            // Basic markdown parsing for headings, paragraphs, lists, bold, italic, tables, images, code blocks
+            let html = markdownText
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>') // H1
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>') // H2
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>') // H3
+                .replace(/^\* (.*$)/gim, '<li>$1</li>') // Unordered list items
+                .replace(/^- (.*$)/gim, '<li>$1</li>') // Unordered list items (hyphen)
+                .replace(/^\d+\. (.*$)/gim, '<li>$1</li>') // Ordered list items
+                .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>') // Bold
+                .replace(/\*(.*?)\*/gim, '<em>$1</em>') // Italic
+                .replace(/`(.*?)`/gim, '<code>$1</code>'); // Inline code
+
+            // Handle lists (wrap li in ul/ol) - simple approach, might not handle nested lists perfectly
+            html = html.replace(/(<li>.*<\/li>(\n|$))+/gim, '<ul>$&</ul>');
+            html = html.replace(/<ul>\n<li>(\d+\. .*?)<\/li>/gim, '<ol>\n<li>$1</li>'); // Convert to ol if starts with number
+
+            // Handle paragraphs (lines not starting with a tag)
+            html = html.split('\n').map(line => {
+                if (line.trim() === '' || line.trim().match(/<h[1-3]>|<ul|<ol|<img|<table|<pre>/)) {
+                    return line;
+                }
+                return `<p>${line}</p>`;
+            }).join('\n');
+
+            // Handle images: ![alt text](url)
+            html = html.replace(/!\[(.*?)\]\((.*?)\)/gim, '<img src="$2" alt="$1" class="rounded-lg shadow-md my-4">');
+
+            // Handle tables (very basic, assumes simple markdown table structure)
+            // This is a simplified regex and might not handle all edge cases of markdown tables
+            html = html.replace(/\|(.+)\|(?:\n\|[-: ]+\|)+\n((?:\|.*\|\n)*)/gim, (match, headerLine, bodyLines) => {
+                const headers = headerLine.split('|').map(h => `<th>${h.trim()}</th>`).join('');
+                const rows = bodyLines.split('\n').filter(Boolean).map(rowLine => {
+                    const cells = rowLine.split('|').map(c => `<td>${c.trim()}</td>`).join('');
+                    return `<tr>${cells}</tr>`;
+                }).join('');
+                return `<table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table>`;
+            });
+
+            // Handle code blocks (simple ```lang...```)
+            html = html.replace(/```(.*?)?\n([\s\S]*?)```/gim, '<pre><code>$2</code></pre>');
+
+
+            return html;
+        }
+
+
+        // Function to display a specific module
+        function showModule(index) {
+            currentModuleIndex = index;
+            const module = modules[currentModuleIndex];
+
+            // Hide modules list, show module detail
+            document.getElementById('modules-list').classList.add('hidden');
+            moduleDetailSection.classList.remove('hidden');
+
+            // Scroll to the top of the module detail section
+            moduleDetailSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Update module content
+            moduleDetailTitle.textContent = module.title;
+            moduleContentDiv.innerHTML = renderMarkdown(module.content);
+            moduleInteractiveDiv.innerHTML = renderMarkdown(module.interactive);
+
+            // Reset quiz state for the new module
+            quizCompleted = false;
+            quizScore = 0;
+            totalQuestions = 0;
+            quizResultsDiv.classList.add('hidden');
+            submitQuizBtn.classList.remove('hidden');
+            renderQuiz();
+            updateNavigationButtons();
+        }
+
+        // Function to render quiz questions
+        function renderQuiz() {
+            const module = modules[currentModuleIndex];
+            quizQuestionsContainer.innerHTML = ''; // Clear previous questions
+            module.quiz.questions.forEach((q, qIndex) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'mb-6 p-4 border border-gray-200 rounded-lg';
+                questionDiv.innerHTML = `
+                    <p class="font-medium text-lg mb-3 text-gray-800">${qIndex + 1}. ${q.question}</p>
+                    <div class="space-y-2" id="question-${qIndex}-options">
+                        ${q.options.map((option, oIndex) => `
+                            <label class="flex items-center p-2 rounded-md cursor-pointer transition-colors duration-200 hover:bg-indigo-50">
+                                <input type="radio" name="question-${qIndex}" value="${oIndex}" class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out">
+                                <span class="ml-3 text-gray-700">${option}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                quizQuestionsContainer.appendChild(questionDiv);
+            });
+        }
+
+        // Function to handle quiz submission
+        function handleSubmitQuiz() {
+            const module = modules[currentModuleIndex];
+            let correctAnswersCount = 0;
+            let allAnswered = true;
+            const selectedAnswers = {};
+
+            module.quiz.questions.forEach((q, qIndex) => {
+                const selectedOption = document.querySelector(`input[name="question-${qIndex}"]:checked`);
+                if (selectedOption) {
+                    const selectedValue = parseInt(selectedOption.value);
+                    selectedAnswers[qIndex] = selectedValue;
+                    if (selectedValue === q.answer) {
+                        correctAnswersCount++;
+                    }
+                } else {
+                    allAnswered = false;
+                }
+            });
+
+            if (!allAnswered) {
+                alert('Harap jawab semua pertanyaan sebelum mengirim!');
+                return;
+            }
+
+            quizScore = correctAnswersCount;
+            totalQuestions = module.quiz.questions.length;
+            quizCompleted = true;
+
+            quizResultsDiv.textContent = `Skor Anda: ${quizScore} dari ${totalQuestions}`;
+            quizResultsDiv.classList.remove('hidden');
+            submitQuizBtn.classList.add('hidden');
+
+            // Apply styling for correct/incorrect answers
+            module.quiz.questions.forEach((q, qIndex) => {
+                const optionsContainer = document.getElementById(`question-${qIndex}-options`);
+                optionsContainer.querySelectorAll('input[type="radio"]').forEach(input => {
+                    const label = input.closest('label');
+                    const optionIndex = parseInt(input.value);
+                    const isCorrectOption = q.answer === optionIndex;
+                    const isSelectedOption = selectedAnswers[qIndex] === optionIndex;
+
+                    input.disabled = true; // Disable further changes
+
+                    if (isCorrectOption) {
+                        label.classList.add('bg-green-200', 'text-green-800');
+                        label.classList.remove('hover:bg-indigo-50');
+                    } else if (isSelectedOption && !isCorrectOption) {
+                        label.classList.add('bg-red-200', 'text-red-800');
+                        label.classList.remove('hover:bg-indigo-50');
+                    }
+                });
+            });
+
+            updateNavigationButtons();
+        }
+
+        // Function to update navigation button states
+        function updateNavigationButtons() {
+            // Previous button
+            if (currentModuleIndex === 0) {
+                prevModuleBtn.disabled = true;
+                prevModuleBtn.classList.remove('bg-indigo-500', 'hover:bg-indigo-600', 'text-white', 'shadow-md', 'hover:shadow-lg', 'transform', 'hover:-translate-x-1');
+                prevModuleBtn.classList.add('bg-gray-300', 'text-gray-600', 'cursor-not-allowed');
+            } else {
+                prevModuleBtn.disabled = false;
+                prevModuleBtn.classList.add('bg-indigo-500', 'hover:bg-indigo-600', 'text-white', 'shadow-md', 'hover:shadow-lg', 'transform', 'hover:-translate-x-1');
+                prevModuleBtn.classList.remove('bg-gray-300', 'text-gray-600', 'cursor-not-allowed');
+            }
+
+            // Next button
+            const passedQuiz = quizCompleted && quizScore >= (totalQuestions / 2);
+            if (currentModuleIndex < modules.length - 1 && passedQuiz) {
+                nextModuleBtn.disabled = false;
+                nextModuleBtn.classList.add('bg-green-500', 'hover:bg-green-600', 'text-white', 'shadow-md', 'hover:shadow-lg', 'transform', 'hover:translate-x-1');
+                nextModuleBtn.classList.remove('bg-orange-200', 'text-orange-800', 'cursor-not-allowed');
+                nextModuleBtn.textContent = 'Lanjut ke Modul Berikutnya \u2192'; // Right arrow
+            } else if (currentModuleIndex === modules.length - 1 && passedQuiz) {
+                nextModuleBtn.disabled = true; // Disable if it's the last module and quiz passed
+                nextModuleBtn.classList.add('bg-green-500', 'text-white', 'shadow-md');
+                nextModuleBtn.classList.remove('bg-orange-200', 'text-orange-800', 'hover:bg-green-600', 'hover:shadow-lg', 'transform', 'hover:translate-x-1');
+                nextModuleBtn.textContent = 'Selamat! Anda telah menyelesaikan semua modul!';
+            }
+            else {
+                nextModuleBtn.disabled = true;
+                nextModuleBtn.classList.remove('bg-green-500', 'hover:bg-green-600', 'text-white', 'shadow-md', 'hover:shadow-lg', 'transform', 'hover:translate-x-1');
+                nextModuleBtn.classList.add('bg-orange-200', 'text-orange-800', 'cursor-not-allowed');
+                nextModuleBtn.textContent = 'Selesaikan kuis untuk melanjutkan (min. 50% benar)';
+            }
+        }
+
+        // Function to render module cards
+        function renderModuleCards() {
+            moduleCardsContainer.innerHTML = ''; // Clear previous cards
+            modules.forEach((module, index) => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'bg-white p-8 rounded-xl shadow-lg border border-gray-200 transition-all duration-300 hover-scale-105 hover-shadow-lg cursor-pointer';
+                cardDiv.innerHTML = `
+                    <div class="text-indigo-500 mb-4 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-center text-indigo-700 mb-4">${module.title}</h3>
+                    <p class="text-gray-600 text-center">${module.content.split('\n')[4].substring(0, 100)}...</p> <!-- Take first paragraph snippet -->
+                `;
+                cardDiv.addEventListener('click', () => showModule(index));
+                moduleCardsContainer.appendChild(cardDiv);
+            });
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            renderModuleCards(); // Initial rendering of module cards
+            updateNavigationButtons(); // Initial state for buttons
+
+            // Smooth scroll for internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#modules-list' && currentModuleIndex !== -1) {
+                        // If navigating back to modules list from a detail view
+                        moduleDetailSection.classList.add('hidden');
+                        document.getElementById('modules-list').classList.remove('hidden');
+                        currentModuleIndex = -1; // Reset module detail state
+                        window.scrollTo(0, document.getElementById('modules-list').offsetTop);
+                    } else {
+                        document.querySelector(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Home link behavior
+            homeLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                moduleDetailSection.classList.add('hidden');
+                document.getElementById('modules-list').classList.remove('hidden');
+                currentModuleIndex = -1; // Reset module detail state
+                window.scrollTo(0, document.getElementById('hero').offsetTop);
+            });
+
+            submitQuizBtn.addEventListener('click', handleSubmitQuiz);
+
+            prevModuleBtn.addEventListener('click', () => {
+                if (currentModuleIndex > 0) {
+                    showModule(currentModuleIndex - 1);
+                }
+            });
+
+            nextModuleBtn.addEventListener('click', () => {
+                if (currentModuleIndex < modules.length - 1) {
+                    showModule(currentModuleIndex + 1);
+                }
+            });
+
+            // Optional: Add a subtle animation on scroll for elements
+            const animateElements = document.querySelectorAll('.animate-fade-in-down, .animate-fade-in-up, .animate-fade-in-up-delay');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        if (entry.target.classList.contains('animate-fade-in-up-delay')) {
+                            entry.target.style.animationDelay = '0.3s'; // Use animationDelay for CSS animations
+                        }
+                    } else {
+                        // Optional: remove classes if you want animation to reset on scroll out
+                        // entry.target.classList.remove('opacity-100', 'translate-y-0');
+                        // if (entry.target.classList.contains('animate-fade-in-up-delay')) {
+                        //     entry.target.style.animationDelay = '0s';
+                        // }
+                    }
+                });
+            }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+
+            animateElements.forEach(el => {
+                el.classList.add('opacity-0'); // Start hidden
+                if (el.classList.contains('animate-fade-in-down')) {
+                    el.classList.add('-translate-y-4');
+                } else if (el.classList.contains('animate-fade-in-up') || el.classList.contains('animate-fade-in-up-delay')) {
+                    el.classList.add('translate-y-4');
+                }
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
